@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:oauth2/oauth2.dart';
 import 'package:repo_viewer/auth/infrastructure/credentials_storage/credentials_storage.dart';
+import 'package:repo_viewer/auth/infrastructure/oauth_app_credentials.dart';
 
 class GithubAuthenticator {
   final CredentialsStorage _credentialsStorage;
@@ -29,4 +30,17 @@ class GithubAuthenticator {
 
   Future<bool> isSignedIn() =>
       getSignedInCredentials().then((credentials) => credentials != null);
+
+  AuthorizationCodeGrant get authorizationCodeGrant => AuthorizationCodeGrant(
+        OauthAppCredentials.clientId,
+        authorizationEndpoint,
+        tokenEndpoint,
+        secret: OauthAppCredentials.clientSecret,
+      );
+
+  Uri getAuthorizationUrl(AuthorizationCodeGrant grant) =>
+      grant.getAuthorizationUrl(
+        redirectUrl,
+        scopes: scopes,
+      );
 }
