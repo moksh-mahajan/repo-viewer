@@ -4,6 +4,17 @@ import 'package:oauth2/oauth2.dart';
 import 'package:repo_viewer/auth/domain/auth_failure.dart';
 import 'package:repo_viewer/auth/infrastructure/credentials_storage/credentials_storage.dart';
 import 'package:repo_viewer/auth/infrastructure/oauth_app_credentials.dart';
+import 'package:http/http.dart' as http;
+
+class GithubOAuthHttpClient extends http.BaseClient {
+  final httpClient = http.Client();
+
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    request.headers['Accept'] = 'application/json';
+    return httpClient.send(request);
+  }
+}
 
 class GithubAuthenticator {
   final CredentialsStorage _credentialsStorage;
@@ -37,6 +48,7 @@ class GithubAuthenticator {
         OauthAppCredentials.clientId,
         authorizationEndpoint,
         tokenEndpoint,
+        httpClient: GithubOAuthHttpClient(),
         secret: OauthAppCredentials.clientSecret,
       );
 
