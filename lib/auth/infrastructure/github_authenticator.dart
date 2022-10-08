@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -8,6 +10,7 @@ import 'package:repo_viewer/auth/domain/auth_failure.dart';
 import 'package:repo_viewer/auth/infrastructure/credentials_storage/credentials_storage.dart';
 import 'package:repo_viewer/auth/infrastructure/oauth_app_credentials.dart';
 import 'package:http/http.dart' as http;
+import 'package:repo_viewer/core/infrastructure/dio_extensions.dart';
 import 'package:repo_viewer/core/shared/encoders.dart';
 
 class GithubOAuthHttpClient extends http.BaseClient {
@@ -89,7 +92,6 @@ class GithubAuthenticator {
     final accessToken = await _credentialsStorage
         .read()
         .then((credentials) => credentials?.accessToken);
-
     final usernameAndPassword = stringToBase64.encode(
       '${OauthAppCredentials.clientId}:${OauthAppCredentials.clientSecret}',
     );
@@ -106,6 +108,15 @@ class GithubAuthenticator {
           'access_token': accessToken,
         },
       );
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        log('Token not revoked!');
+      } else {
+        rethrow;
+      }
+    }
+
+    try {
       await _credentialsStorage.clear();
       return right(unit);
     } on PlatformException {
