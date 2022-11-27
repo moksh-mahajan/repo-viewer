@@ -17,19 +17,19 @@ final dioProvider = Provider(
 
 final credentialsStorageProvider = Provider<CredentialsStorage>(
   (ref) => SecureCredentialsStorage(
-    ref.read(flutterSecureStorageProvider),
+    ref.watch(flutterSecureStorageProvider),
   ),
 );
 
 final githubAuthenticatorProvider = Provider(
   (ref) => GithubAuthenticator(
-    ref.read(credentialsStorageProvider),
-    ref.read(dioProvider),
+    ref.watch(credentialsStorageProvider),
+    ref.watch(dioProvider),
   ),
 );
 
 final authNotifierProvider = StateNotifierProvider<AuthNotifier, AuthState>(
   (ref) => AuthNotifier(
-    ref.read(githubAuthenticatorProvider),
+    ref.watch(githubAuthenticatorProvider),
   ),
 );
