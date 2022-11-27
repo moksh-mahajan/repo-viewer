@@ -4,7 +4,7 @@ import 'package:repo_viewer/core/presentation/app_widget.dart';
 
 void main() {
   runApp(
-    const ProviderScope(
+    ProviderScope(
       child: AppWidget(),
     ),
   );
