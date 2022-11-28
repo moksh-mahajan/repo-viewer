@@ -13,7 +13,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/material.dart' as _i6;
-import 'package:flutter/src/widgets/framework.dart' as _i7;
 
 import '../../../auth/presentation/authorization_page.dart' as _i3;
 import '../../../auth/presentation/sign_in_page.dart' as _i2;
@@ -107,7 +106,7 @@ class SignInRoute extends _i5.PageRouteInfo<void> {
 /// [_i3.AuthorizationPage]
 class AuthorizationRoute extends _i5.PageRouteInfo<AuthorizationRouteArgs> {
   AuthorizationRoute({
-    _i7.Key? key,
+    _i6.Key? key,
     required Uri authorizationUrl,
     required void Function(Uri) onAuthorizationCodeRedirectAttempt,
   }) : super(
@@ -131,7 +130,7 @@ class AuthorizationRouteArgs {
     required this.onAuthorizationCodeRedirectAttempt,
   });
 
-  final _i7.Key? key;
+  final _i6.Key? key;
 
   final Uri authorizationUrl;
 

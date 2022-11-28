@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class AuthorizationPage extends StatefulWidget {
   final Uri authorizationUrl;
@@ -18,6 +20,12 @@ class AuthorizationPage extends StatefulWidget {
 class _AuthorizationPageState extends State<AuthorizationPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+          child: WebView(
+        javascriptMode: JavascriptMode.unrestricted,
+        initialUrl: widget.authorizationUrl.toString(),
+      )),
+    );
   }
 }
