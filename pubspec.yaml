@@ -22,6 +22,9 @@ dependencies:
   hooks_riverpod: ^2.0.2
   material_design_icons_flutter: ^6.0.7096
   oauth2: ^2.0.0
+  path: ^1.8.2
+  path_provider: ^2.0.11
+  sembast: ^3.3.1
   webview_flutter: ^3.0.4
 
 dev_dependencies:
