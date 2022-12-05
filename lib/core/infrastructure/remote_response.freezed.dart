@@ -16,25 +16,26 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RemoteResponse<T> {
+  int? get maxPage => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() noConnection,
-    required TResult Function() notModified,
-    required TResult Function(T data) withNewData,
+    required TResult Function(int? maxPage) noConnection,
+    required TResult Function(int? maxPage) notModified,
+    required TResult Function(T data, int? maxPage) withNewData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? noConnection,
-    TResult Function()? notModified,
-    TResult Function(T data)? withNewData,
+    TResult Function(int? maxPage)? noConnection,
+    TResult Function(int? maxPage)? notModified,
+    TResult Function(T data, int? maxPage)? withNewData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? noConnection,
-    TResult Function()? notModified,
-    TResult Function(T data)? withNewData,
+    TResult Function(int? maxPage)? noConnection,
+    TResult Function(int? maxPage)? notModified,
+    TResult Function(T data, int? maxPage)? withNewData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,6 +61,10 @@ mixin _$RemoteResponse<T> {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $RemoteResponseCopyWith<T, RemoteResponse<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -67,6 +72,7 @@ abstract class $RemoteResponseCopyWith<T, $Res> {
   factory $RemoteResponseCopyWith(
           RemoteResponse<T> value, $Res Function(RemoteResponse<T>) then) =
       _$RemoteResponseCopyWithImpl<T, $Res>;
+  $Res call({int? maxPage});
 }
 
 /// @nodoc
@@ -77,13 +83,28 @@ class _$RemoteResponseCopyWithImpl<T, $Res>
   final RemoteResponse<T> _value;
   // ignore: unused_field
   final $Res Function(RemoteResponse<T>) _then;
+
+  @override
+  $Res call({
+    Object? maxPage = freezed,
+  }) {
+    return _then(_value.copyWith(
+      maxPage: maxPage == freezed
+          ? _value.maxPage
+          : maxPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$$_NoConnectionCopyWith<T, $Res> {
+abstract class _$$_NoConnectionCopyWith<T, $Res>
+    implements $RemoteResponseCopyWith<T, $Res> {
   factory _$$_NoConnectionCopyWith(
           _$_NoConnection<T> value, $Res Function(_$_NoConnection<T>) then) =
       __$$_NoConnectionCopyWithImpl<T, $Res>;
+  @override
+  $Res call({int? maxPage});
 }
 
 /// @nodoc
@@ -96,57 +117,80 @@ class __$$_NoConnectionCopyWithImpl<T, $Res>
 
   @override
   _$_NoConnection<T> get _value => super._value as _$_NoConnection<T>;
+
+  @override
+  $Res call({
+    Object? maxPage = freezed,
+  }) {
+    return _then(_$_NoConnection<T>(
+      maxPage: maxPage == freezed
+          ? _value.maxPage
+          : maxPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_NoConnection<T> extends _NoConnection<T> {
-  const _$_NoConnection() : super._();
+  const _$_NoConnection({this.maxPage}) : super._();
+
+  @override
+  final int? maxPage;
 
   @override
   String toString() {
-    return 'RemoteResponse<$T>.noConnection()';
+    return 'RemoteResponse<$T>.noConnection(maxPage: $maxPage)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NoConnection<T>);
+        (other.runtimeType == runtimeType &&
+            other is _$_NoConnection<T> &&
+            const DeepCollectionEquality().equals(other.maxPage, maxPage));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(maxPage));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_NoConnectionCopyWith<T, _$_NoConnection<T>> get copyWith =>
+      __$$_NoConnectionCopyWithImpl<T, _$_NoConnection<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() noConnection,
-    required TResult Function() notModified,
-    required TResult Function(T data) withNewData,
+    required TResult Function(int? maxPage) noConnection,
+    required TResult Function(int? maxPage) notModified,
+    required TResult Function(T data, int? maxPage) withNewData,
   }) {
-    return noConnection();
+    return noConnection(maxPage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? noConnection,
-    TResult Function()? notModified,
-    TResult Function(T data)? withNewData,
+    TResult Function(int? maxPage)? noConnection,
+    TResult Function(int? maxPage)? notModified,
+    TResult Function(T data, int? maxPage)? withNewData,
   }) {
-    return noConnection?.call();
+    return noConnection?.call(maxPage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? noConnection,
-    TResult Function()? notModified,
-    TResult Function(T data)? withNewData,
+    TResult Function(int? maxPage)? noConnection,
+    TResult Function(int? maxPage)? notModified,
+    TResult Function(T data, int? maxPage)? withNewData,
     required TResult orElse(),
   }) {
     if (noConnection != null) {
-      return noConnection();
+      return noConnection(maxPage);
     }
     return orElse();
   }
@@ -187,15 +231,25 @@ class _$_NoConnection<T> extends _NoConnection<T> {
 }
 
 abstract class _NoConnection<T> extends RemoteResponse<T> {
-  const factory _NoConnection() = _$_NoConnection<T>;
+  const factory _NoConnection({final int? maxPage}) = _$_NoConnection<T>;
   const _NoConnection._() : super._();
+
+  @override
+  int? get maxPage;
+  @override
+  @JsonKey(ignore: true)
+  _$$_NoConnectionCopyWith<T, _$_NoConnection<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_NotModifiedCopyWith<T, $Res> {
+abstract class _$$_NotModifiedCopyWith<T, $Res>
+    implements $RemoteResponseCopyWith<T, $Res> {
   factory _$$_NotModifiedCopyWith(
           _$_NotModified<T> value, $Res Function(_$_NotModified<T>) then) =
       __$$_NotModifiedCopyWithImpl<T, $Res>;
+  @override
+  $Res call({int? maxPage});
 }
 
 /// @nodoc
@@ -208,57 +262,80 @@ class __$$_NotModifiedCopyWithImpl<T, $Res>
 
   @override
   _$_NotModified<T> get _value => super._value as _$_NotModified<T>;
+
+  @override
+  $Res call({
+    Object? maxPage = freezed,
+  }) {
+    return _then(_$_NotModified<T>(
+      maxPage: maxPage == freezed
+          ? _value.maxPage
+          : maxPage // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_NotModified<T> extends _NotModified<T> {
-  const _$_NotModified() : super._();
+  const _$_NotModified({this.maxPage}) : super._();
+
+  @override
+  final int? maxPage;
 
   @override
   String toString() {
-    return 'RemoteResponse<$T>.notModified()';
+    return 'RemoteResponse<$T>.notModified(maxPage: $maxPage)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NotModified<T>);
+        (other.runtimeType == runtimeType &&
+            other is _$_NotModified<T> &&
+            const DeepCollectionEquality().equals(other.maxPage, maxPage));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(maxPage));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_NotModifiedCopyWith<T, _$_NotModified<T>> get copyWith =>
+      __$$_NotModifiedCopyWithImpl<T, _$_NotModified<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() noConnection,
-    required TResult Function() notModified,
-    required TResult Function(T data) withNewData,
+    required TResult Function(int? maxPage) noConnection,
+    required TResult Function(int? maxPage) notModified,
+    required TResult Function(T data, int? maxPage) withNewData,
   }) {
-    return notModified();
+    return notModified(maxPage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? noConnection,
-    TResult Function()? notModified,
-    TResult Function(T data)? withNewData,
+    TResult Function(int? maxPage)? noConnection,
+    TResult Function(int? maxPage)? notModified,
+    TResult Function(T data, int? maxPage)? withNewData,
   }) {
-    return notModified?.call();
+    return notModified?.call(maxPage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? noConnection,
-    TResult Function()? notModified,
-    TResult Function(T data)? withNewData,
+    TResult Function(int? maxPage)? noConnection,
+    TResult Function(int? maxPage)? notModified,
+    TResult Function(T data, int? maxPage)? withNewData,
     required TResult orElse(),
   }) {
     if (notModified != null) {
-      return notModified();
+      return notModified(maxPage);
     }
     return orElse();
   }
@@ -299,16 +376,25 @@ class _$_NotModified<T> extends _NotModified<T> {
 }
 
 abstract class _NotModified<T> extends RemoteResponse<T> {
-  const factory _NotModified() = _$_NotModified<T>;
+  const factory _NotModified({final int? maxPage}) = _$_NotModified<T>;
   const _NotModified._() : super._();
+
+  @override
+  int? get maxPage;
+  @override
+  @JsonKey(ignore: true)
+  _$$_NotModifiedCopyWith<T, _$_NotModified<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_WithNewDataCopyWith<T, $Res> {
+abstract class _$$_WithNewDataCopyWith<T, $Res>
+    implements $RemoteResponseCopyWith<T, $Res> {
   factory _$$_WithNewDataCopyWith(
           _$_WithNewData<T> value, $Res Function(_$_WithNewData<T>) then) =
       __$$_WithNewDataCopyWithImpl<T, $Res>;
-  $Res call({T data});
+  @override
+  $Res call({T data, int? maxPage});
 }
 
 /// @nodoc
@@ -325,12 +411,17 @@ class __$$_WithNewDataCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? data = freezed,
+    Object? maxPage = freezed,
   }) {
     return _then(_$_WithNewData<T>(
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T,
+      maxPage: maxPage == freezed
+          ? _value.maxPage
+          : maxPage // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -338,14 +429,16 @@ class __$$_WithNewDataCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$_WithNewData<T> extends _WithNewData<T> {
-  const _$_WithNewData(this.data) : super._();
+  const _$_WithNewData(this.data, {this.maxPage}) : super._();
 
   @override
   final T data;
+  @override
+  final int? maxPage;
 
   @override
   String toString() {
-    return 'RemoteResponse<$T>.withNewData(data: $data)';
+    return 'RemoteResponse<$T>.withNewData(data: $data, maxPage: $maxPage)';
   }
 
   @override
@@ -353,12 +446,15 @@ class _$_WithNewData<T> extends _WithNewData<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WithNewData<T> &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.maxPage, maxPage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(maxPage));
 
   @JsonKey(ignore: true)
   @override
@@ -368,33 +464,33 @@ class _$_WithNewData<T> extends _WithNewData<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() noConnection,
-    required TResult Function() notModified,
-    required TResult Function(T data) withNewData,
+    required TResult Function(int? maxPage) noConnection,
+    required TResult Function(int? maxPage) notModified,
+    required TResult Function(T data, int? maxPage) withNewData,
   }) {
-    return withNewData(data);
+    return withNewData(data, maxPage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? noConnection,
-    TResult Function()? notModified,
-    TResult Function(T data)? withNewData,
+    TResult Function(int? maxPage)? noConnection,
+    TResult Function(int? maxPage)? notModified,
+    TResult Function(T data, int? maxPage)? withNewData,
   }) {
-    return withNewData?.call(data);
+    return withNewData?.call(data, maxPage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? noConnection,
-    TResult Function()? notModified,
-    TResult Function(T data)? withNewData,
+    TResult Function(int? maxPage)? noConnection,
+    TResult Function(int? maxPage)? notModified,
+    TResult Function(T data, int? maxPage)? withNewData,
     required TResult orElse(),
   }) {
     if (withNewData != null) {
-      return withNewData(data);
+      return withNewData(data, maxPage);
     }
     return orElse();
   }
@@ -435,10 +531,14 @@ class _$_WithNewData<T> extends _WithNewData<T> {
 }
 
 abstract class _WithNewData<T> extends RemoteResponse<T> {
-  const factory _WithNewData(final T data) = _$_WithNewData<T>;
+  const factory _WithNewData(final T data, {final int? maxPage}) =
+      _$_WithNewData<T>;
   const _WithNewData._() : super._();
 
   T get data;
+  @override
+  int? get maxPage;
+  @override
   @JsonKey(ignore: true)
   _$$_WithNewDataCopyWith<T, _$_WithNewData<T>> get copyWith =>
       throw _privateConstructorUsedError;
