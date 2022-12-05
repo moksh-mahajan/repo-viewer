@@ -97,7 +97,7 @@ class GithubAuthenticator {
     );
 
     try {
-      _dio.deleteUri(
+      await _dio.deleteUri(
         revocationEndpoint,
         options: Options(
           headers: {
