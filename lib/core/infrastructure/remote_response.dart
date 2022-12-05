@@ -5,13 +5,13 @@ part 'remote_response.freezed.dart';
 class RemoteResponse<T> with _$RemoteResponse<T> {
   const RemoteResponse._();
   const factory RemoteResponse.noConnection({
-    int? maxPage,
+    required int maxPage,
   }) = _NoConnection<T>;
   const factory RemoteResponse.notModified({
-    int? maxPage,
+    required int maxPage,
   }) = _NotModified<T>;
   const factory RemoteResponse.withNewData(
     T data, {
-    int? maxPage,
+   required int maxPage,
   }) = _WithNewData<T>;
 }

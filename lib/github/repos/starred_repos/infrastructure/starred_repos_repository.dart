@@ -22,18 +22,18 @@ class StarredReposRepository {
           // TODO: local service
           noConnection: (maxPage) => Fresh.no(
             [],
-            isNextPageAvailable: page < maxPage!,
+            isNextPageAvailable: page < maxPage,
           ),
           // TODO: local service
           notModified: (maxPage) => Fresh.yes(
             [],
-            isNextPageAvailable: page < maxPage!,
+            isNextPageAvailable: page < maxPage,
           ),
           withNewData: (data, maxPage) {
             // TODO: save data in the local service
             return Fresh.yes(
               data.toDomain(),
-              isNextPageAvailable: page < maxPage!,
+              isNextPageAvailable: page < maxPage,
             );
           },
         ),
