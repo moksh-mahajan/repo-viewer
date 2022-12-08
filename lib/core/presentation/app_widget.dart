@@ -14,6 +14,8 @@ final initializationProvider = FutureProvider<Unit>((ref) async {
       headers: {
         'Accept': 'application/vnd.github.v3.html+json',
       },
+      validateStatus: (status) =>
+          status != null && status >= 200 && status < 400,
     )
     ..interceptors.add(
       ref.read(oAuth2InterceptorProvider),
