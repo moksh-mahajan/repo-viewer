@@ -28,7 +28,8 @@ final starredReposRepositoryProvider = Provider(
   ),
 );
 
-final starredReposNotifierProvider = StateNotifierProvider(
+final starredReposNotifierProvider =
+    StateNotifierProvider<StarredReposNotifier, StarredReposState>(
   (ref) => StarredReposNotifier(
     ref.watch(starredReposRepositoryProvider),
   ),

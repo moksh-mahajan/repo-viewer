@@ -78,6 +78,7 @@ class GithubAuthenticator {
     try {
       final httpClient = await grant.handleAuthorizationResponse(queryParams);
       _credentialsStorage.save(httpClient.credentials);
+      print('Access Token: ${httpClient.credentials.accessToken}');
       return right(unit);
     } on FormatException {
       return left(const AuthFailure.server());

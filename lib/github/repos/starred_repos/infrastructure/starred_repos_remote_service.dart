@@ -20,7 +20,7 @@ class StarredReposRemoteService {
       int page) async {
     final requestUri = Uri.https(
       'api.github.com',
-      '/users/starred',
+      '/user/starred',
       {
         'page': '$page',
         'per_page': PaginationConfig.itemsPerPage.toString(),
