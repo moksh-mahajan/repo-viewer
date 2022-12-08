@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:repo_viewer/github/core/domain/github_repo.dart';
 
 class RepoTile extends StatelessWidget {
@@ -15,7 +16,7 @@ class RepoTile extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.transparent,
-        backgroundImage: CachedNetworkImageProvider(repo.owner.avatarUrl),
+        backgroundImage: CachedNetworkImageProvider(repo.owner.avatarUrlSmall),
       ),
       title: Text(repo.fullName),
       subtitle: Text(
@@ -23,6 +24,10 @@ class RepoTile extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
+      trailing: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Icon(Icons.star_border),
+        Text(repo.stargazersCount.toString())
+      ]),
     );
   }
 }
