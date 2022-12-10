@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:repo_viewer/github/core/shared/providers.dart';
 import 'package:repo_viewer/github/repos/starred_repos/application/starred_repos_notifier.dart';
+import 'package:repo_viewer/github/repos/starred_repos/presentation/failure_repo_tile.dart';
+import 'package:repo_viewer/github/repos/starred_repos/presentation/loading_repo_tile.dart';
 import 'package:repo_viewer/github/repos/starred_repos/presentation/repo_tile.dart';
 
 class PaginatedReposListView extends ConsumerWidget {
@@ -23,12 +25,28 @@ class PaginatedReposListView extends ConsumerWidget {
           loadFailure: (_) => _.repos.entity.length + 1),
       itemBuilder: (context, index) {
         return state.map(
-          initial: (_) => const FlutterLogo(),
-          loadingInProgress: (_) => const FlutterLogo(),
+          initial: (_) => const SizedBox(),
+          loadingInProgress: (_) {
+            if (index < _.repos.entity.length) {
+              return RepoTile(
+                repo: _.repos.entity[index],
+              );
+            }
+            return const LoadingRepoTile();
+          },
           loadSuccess: (_) => RepoTile(
             repo: _.repos.entity[index],
           ),
-          loadFailure: (_) => Text(_.failure.errorCode.toString()),
+          loadFailure: (_) {
+            if (index < _.repos.entity.length) {
+              return RepoTile(
+                repo: _.repos.entity[index],
+              );
+            }
+            return FailureRepoTile(
+              failure: _.failure,
+            );
+          },
         );
       },
     );

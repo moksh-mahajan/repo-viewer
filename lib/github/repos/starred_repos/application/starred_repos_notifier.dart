@@ -33,7 +33,7 @@ class StarredReposNotifier extends StateNotifier<StarredReposState> {
   StarredReposNotifier(this._repository)
       : super(StarredReposState.initial(Fresh.yes([])));
 
-  int _page = -1;
+  int _page = 1;
 
   Future<void> getNextStarredReposPage() async {
     state = StarredReposState.loadingInProgress(
