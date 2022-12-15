@@ -4,6 +4,7 @@ import 'package:repo_viewer/core/infrastructure/network_exceptions.dart';
 import 'package:repo_viewer/github/core/domain/github_failure.dart';
 import 'package:repo_viewer/github/core/domain/github_repo.dart';
 import 'package:repo_viewer/github/core/infrastructure/github_repo_dto.dart';
+import 'package:repo_viewer/github/repos/core/infrastructure/extensions.dart';
 import 'package:repo_viewer/github/repos/starred_repos/infrastructure/starred_repos_local_service.dart';
 import 'package:repo_viewer/github/repos/starred_repos/infrastructure/starred_repos_remote_service.dart';
 
@@ -43,11 +44,5 @@ class StarredReposRepository {
     } on RestApiException catch (e) {
       return left(GithubFailure.api(e.errorCode));
     }
-  }
-}
-
-extension DTOListTODomainList on List<GithubRepoDTO> {
-  List<GithubRepo> toDomain() {
-    return map((e) => e.toDomain()).toList();
   }
 }
