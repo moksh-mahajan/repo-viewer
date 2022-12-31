@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:repo_viewer/core/presentation/toasts.dart';
 import 'package:repo_viewer/github/core/presentation/no_results_display.dart';
-import 'package:repo_viewer/github/core/shared/providers.dart';
 import 'package:repo_viewer/github/repos/core/application/paginated_repos_notifier.dart';
 import 'package:repo_viewer/github/repos/core/presentation/failure_repo_tile.dart';
 import 'package:repo_viewer/github/repos/core/presentation/loading_repo_tile.dart';

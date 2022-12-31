@@ -1,27 +1,29 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:repo_viewer/auth/shared/providers.dart';
-import 'package:repo_viewer/core/presentation/routes/app_router.gr.dart';
 import 'package:repo_viewer/github/core/shared/providers.dart';
 import 'package:repo_viewer/github/repos/core/presentation/paginated_repos_list_view.dart';
 
-class StarredReposPage extends ConsumerStatefulWidget {
-  const StarredReposPage({Key? key}) : super(key: key);
+class SearchedReposPage extends ConsumerStatefulWidget {
+  final String searchTerm;
+  const SearchedReposPage({
+    Key? key,
+    required this.searchTerm,
+  }) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    return _StarredReposPageState();
+    return _SearchedReposPageState();
   }
 }
 
-class _StarredReposPageState extends ConsumerState<StarredReposPage> {
+class _SearchedReposPageState extends ConsumerState<SearchedReposPage> {
   @override
   void initState() {
     Future.microtask(() => ref
-        .read(starredReposNotifierProvider.notifier)
-        .getNextStarredReposPage());
+        .read(searchedReposNotifierProvider.notifier)
+        .getNextSearchedReposPage(widget.searchTerm));
     super.initState();
   }
 
@@ -34,22 +36,16 @@ class _StarredReposPageState extends ConsumerState<StarredReposPage> {
           IconButton(
             onPressed: () => ref.read(authNotifierProvider.notifier).signOut(),
             icon: const Icon(MdiIcons.logoutVariant),
-          ),
-          IconButton(
-            onPressed: () => AutoRouter.of(context).push(
-              SearchedReposRoute(searchTerm: 'react'),
-            ),
-            icon: const Icon(MdiIcons.magnify),
           )
         ],
       ),
       body: PaginatedReposListView(
-        paginatedReposNotifierProvider: starredReposNotifierProvider,
+        paginatedReposNotifierProvider: searchedReposNotifierProvider,
         getNextPage: (ref) => ref
-            .read(starredReposNotifierProvider.notifier)
-            .getNextStarredReposPage(),
+            .read(searchedReposNotifierProvider.notifier)
+            .getNextSearchedReposPage(widget.searchTerm),
         noResultsMessage:
-            "That's about everything we could find in your starred repos right now.",
+            "This is all we could find for your search term. Really...",
       ),
     );
   }
