@@ -11,10 +11,14 @@ import 'package:repo_viewer/github/repos/core/presentation/repo_tile.dart';
 class PaginatedReposListView extends StatefulWidget {
   final StateNotifierProvider<PaginatedReposNotifier, PaginatedReposState>
       paginatedReposNotifierProvider;
+  final void Function(WidgetRef ref) getNextPage;
+  final String noResultsMessage;
 
   const PaginatedReposListView({
     Key? key,
     required this.paginatedReposNotifierProvider,
+    required this.getNextPage,
+    required this.noResultsMessage,
   }) : super(key: key);
 
   @override
@@ -30,7 +34,7 @@ class _PaginatedReposListViewState extends State<PaginatedReposListView> {
     return Consumer(
       builder: (context, ref, child) {
         ref.listen<PaginatedReposState>(
-          starredReposNotifierProvider,
+          widget.paginatedReposNotifierProvider,
           (_, state) {
             state.map(
                 initial: (_) => canLoadNextPage = true,
@@ -47,7 +51,7 @@ class _PaginatedReposListViewState extends State<PaginatedReposListView> {
                 loadFailure: (_) => canLoadNextPage = false);
           },
         );
-        final state = ref.watch(starredReposNotifierProvider);
+        final state = ref.watch(widget.paginatedReposNotifierProvider);
         return NotificationListener<ScrollNotification>(
             onNotification: (notification) {
               final metrics = notification.metrics;
@@ -56,18 +60,16 @@ class _PaginatedReposListViewState extends State<PaginatedReposListView> {
 
               if (canLoadNextPage && metrics.pixels >= limit) {
                 canLoadNextPage = false;
-                ref
-                    .read(starredReposNotifierProvider.notifier)
-                    .getNextStarredReposPage();
+                widget.getNextPage(ref);
               }
               return false;
             },
             child: state.maybeWhen(
                     orElse: () => false,
                     loadSuccess: (repos, _) => repos.entity.isEmpty)
-                ? const NoResultsDisplay(
+                ?  NoResultsDisplay(
                     message:
-                        "That's about everything we could find in your starred repos right now.",
+                        widget.noResultsMessage,
                   )
                 : _PaginatedListView(state: state));
       },
