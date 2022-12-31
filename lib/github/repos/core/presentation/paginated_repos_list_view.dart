@@ -4,13 +4,17 @@ import 'package:repo_viewer/core/presentation/toasts.dart';
 import 'package:repo_viewer/github/core/presentation/no_results_display.dart';
 import 'package:repo_viewer/github/core/shared/providers.dart';
 import 'package:repo_viewer/github/repos/core/application/paginated_repos_notifier.dart';
-import 'package:repo_viewer/github/repos/starred_repos/presentation/failure_repo_tile.dart';
-import 'package:repo_viewer/github/repos/starred_repos/presentation/loading_repo_tile.dart';
-import 'package:repo_viewer/github/repos/starred_repos/presentation/repo_tile.dart';
+import 'package:repo_viewer/github/repos/core/presentation/failure_repo_tile.dart';
+import 'package:repo_viewer/github/repos/core/presentation/loading_repo_tile.dart';
+import 'package:repo_viewer/github/repos/core/presentation/repo_tile.dart';
 
 class PaginatedReposListView extends StatefulWidget {
+  final StateNotifierProvider<PaginatedReposNotifier, PaginatedReposState>
+      paginatedReposNotifierProvider;
+
   const PaginatedReposListView({
     Key? key,
+    required this.paginatedReposNotifierProvider,
   }) : super(key: key);
 
   @override

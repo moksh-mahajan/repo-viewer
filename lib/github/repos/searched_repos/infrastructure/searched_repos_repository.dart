@@ -6,10 +6,10 @@ import 'package:repo_viewer/github/core/domain/github_repo.dart';
 import 'package:repo_viewer/github/repos/core/infrastructure/extensions.dart';
 import 'package:repo_viewer/github/repos/searched_repos/infrastructure/searched_repos_remote_service.dart';
 
-class SearchReposRepository {
+class SearchedReposRepository {
   final SearchedReposRemoteService _remoteService;
 
-  SearchReposRepository(this._remoteService);
+  SearchedReposRepository(this._remoteService);
 
   Future<Either<GithubFailure, Fresh<List<GithubRepo>>>> getSearchedReposPage(
     String query,

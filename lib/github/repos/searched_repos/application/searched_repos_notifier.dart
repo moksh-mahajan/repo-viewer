@@ -2,7 +2,7 @@ import 'package:repo_viewer/github/repos/core/application/paginated_repos_notifi
 import 'package:repo_viewer/github/repos/searched_repos/infrastructure/searched_repos_repository.dart';
 
 class SearchedReposNotifier extends PaginatedReposNotifier {
-  final SearchReposRepository _repository;
+  final SearchedReposRepository _repository;
 
   SearchedReposNotifier(this._repository);
 
