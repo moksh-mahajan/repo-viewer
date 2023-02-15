@@ -21,10 +21,10 @@ class SearchedReposPage extends ConsumerStatefulWidget {
 class _SearchedReposPageState extends ConsumerState<SearchedReposPage> {
   @override
   void initState() {
+    super.initState();
     Future.microtask(() => ref
         .read(searchedReposNotifierProvider.notifier)
         .getNextSearchedReposPage(widget.searchTerm));
-    super.initState();
   }
 
   @override
